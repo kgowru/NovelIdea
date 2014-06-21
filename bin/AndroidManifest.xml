@@ -12,6 +12,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         
+        <activity
+            android:name="com.example.recognizer.MenuActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MenuTheme"
+            android:enabled="true" >
+        </activity>
+        
         <service
             android:name="com.example.recognizer.RecognizerService"
             android:icon="@drawable/ic_lap"
