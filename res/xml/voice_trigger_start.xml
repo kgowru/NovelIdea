@@ -1,0 +1,6 @@
+<trigger command="RECOGNIZE_THIS" >
+    <input prompt="@string/glass_voice_prompt" />
+    <constraints
+        camera="true"
+        network="true" />
+</trigger>
