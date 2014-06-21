@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,7 +71,10 @@ public class RecognizerService extends Service {
 			mLiveCard.navigate();
 		}
 		
-		new RestHelper().execute(voiceResults.get(0).replace(' ', '+'));
+		RestHelper rh = new RestHelper();
+		rh.setContext(this);
+		rh.execute(voiceResults.get(0).replace(' ', '+'));
+		//new RestHelper().execute(voiceResults.get(0).replace(' ', '+'));
 		
 		return START_STICKY;
 	}
@@ -86,6 +90,11 @@ public class RecognizerService extends Service {
 	
 	public class RestHelper extends AsyncTask<String,Void,Book>{
 
+		private Context context;
+		public void setContext(Context c) {
+			this.context = c;
+		}
+		
 		@Override
 		protected Book doInBackground(String... arg0) {
 			Book c = new Book();
@@ -109,7 +118,11 @@ public class RecognizerService extends Service {
 			new ImageDownloader().execute(b.getImageURL());
 			mLiveCardView.setTextViewText(R.id.book_rating, "Rating " + Double.toString(b.getRating()));
 			mLiveCard.setViews(mLiveCardView);
+			
+			MenuActivity.setIsbn(b.getISBN());
+			
 		}
+
 	}
 	
 	public class ImageDownloader extends AsyncTask<String,Void,Bitmap> {
@@ -135,6 +148,10 @@ public class RecognizerService extends Service {
 			mLiveCardView.setImageViewBitmap(R.id.book_image, b);
 			mLiveCard.setViews(mLiveCardView);
 		}
+
 	}
+	
+	
+	
 
 }

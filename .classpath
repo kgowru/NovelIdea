@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="src" path="/book-handler"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/BookRecommendation"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
