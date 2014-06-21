@@ -29,6 +29,8 @@ public class MenuActivity extends Activity {
 			return true;
 		case R.id.more_info:
 			moreInfoService(new Intent(MenuActivity.this, RecognizerService.class));
+			// launch the SuggestionScrollActivity
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
