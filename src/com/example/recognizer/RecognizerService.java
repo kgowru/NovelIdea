@@ -68,7 +68,7 @@ public class RecognizerService extends Service {
 			mLiveCard.navigate();
 		}
 		
-		new RestHelper().execute(voiceResults.get(0));
+		new RestHelper().execute(voiceResults.get(0).replace(' ', '+'));
 		
 		return START_STICKY;
 	}
