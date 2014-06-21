@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Recognizer</string>
 	<string name="stop">Stop</string>
+	<string name="more_info">Further Reading</string>
 	<string name="glass_voice_prompt">Say a title</string>
+	<string name="glass_voice_trigger">Find a book</string>
+	<string name="dummy_title">Title of Book</string>
+	<string name="dummy_author">Author of Book</string>
+	<string name="dummy_rating">5 Stars</string>
+	<string name="dummy_rating_counts">2000</string>
 </resources>
