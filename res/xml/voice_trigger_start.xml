@@ -14,4 +14,4 @@
      limitations under the License.
 -->
 
-<trigger command="START_A_TIMER" />
+<trigger command="START_IMAGING" />

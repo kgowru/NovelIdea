@@ -15,7 +15,7 @@
 -->
 
 <resources>
-    <string name="app_name">Timer</string>
+    <string name="app_name">NovelIdea</string>
 
     <string name="timer_finished">Timer finished</string>
 
