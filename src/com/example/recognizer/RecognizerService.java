@@ -14,6 +14,7 @@ import android.widget.RemoteViews;
 import book.Book;
 import book.BookInfoService;
 import book.BookInfoServiceImpl;
+import bookrec.BookRecommendationServiceImpl;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
@@ -21,6 +22,7 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 public class RecognizerService extends Service {
 
 	private static final String LIVE_CARD_TAG = "recognizer";
+	
 	
 	private LiveCard mLiveCard;
 	
@@ -97,9 +99,12 @@ public class RecognizerService extends Service {
 		protected void onPostExecute(Book b){
 			mLiveCardView.setTextViewText(R.id.spoken_text, b.getAuthors().get(0));
 			mLiveCard.setViews(mLiveCardView);
+			MenuActivity ma = new MenuActivity();
+			ma.setIsbn(b.getISBN());
 		}
-		
-		
 	}
+	
+	
+	
 
 }
