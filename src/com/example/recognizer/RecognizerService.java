@@ -119,7 +119,8 @@ public class RecognizerService extends Service {
 			mLiveCardView.setTextViewText(R.id.book_rating, "Rating " + Double.toString(b.getRating()));
 			mLiveCard.setViews(mLiveCardView);
 			
-			MenuActivity.setIsbn(b.getISBN());
+//			MenuActivity.setIsbn(b.getISBN());
+			BookSingleton.getInstance().setIsbn(b.getISBN());
 			
 		}
 

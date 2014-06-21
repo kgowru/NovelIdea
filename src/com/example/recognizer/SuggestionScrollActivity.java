@@ -28,7 +28,8 @@ public class SuggestionScrollActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        ArrayList<bookrec.Book> suggestedBooks = (ArrayList<bookrec.Book>) getIntent().getExtras().get("suggestedBooks");
+        ArrayList<bookrec.Book> suggestedBooks = BookSingleton.getSuggestedBooks();
+        		//(ArrayList<bookrec.Book>) getIntent().getExtras().get("suggestedBooks");
         Log.d("SUGGESTIONS", "We have " + suggestedBooks.size() + " suggestions.");
         createCards(suggestedBooks);
 
@@ -48,7 +49,7 @@ public class SuggestionScrollActivity extends Activity {
         	card = new Card(this);
         	card.setText(suggestedBooks.get(i).getTitle() + "\n" + suggestedBooks.get(i).getAuthor());
         	card.setImageLayout(Card.ImageLayout.LEFT);
-        	card.addImage(getBitmapFromURL(suggestedBooks.get(i).getImageURL()));
+        //	card.addImage(getBitmapFromURL(suggestedBooks.get(i).getImageURL()));
         	card.setFootnote(suggestedBooks.get(i).getLink());
         	mCards.add(card);	
         }
@@ -68,6 +69,8 @@ public class SuggestionScrollActivity extends Activity {
 //        card.setFootnote("By: Hammad Bashir");
 //        mCards.add(card);
     }
+    
+    
     
     public static Bitmap getBitmapFromURL(String src) {
         try {

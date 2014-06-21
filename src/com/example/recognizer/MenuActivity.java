@@ -12,13 +12,16 @@ import android.view.MenuItem;
 
 public class MenuActivity extends Activity {
 	
-	public static String isbn = "";
+	public static String TAG = "MENUACTIVITY";
+	
+	//public static String isbn = "";
 	public ArrayList<bookrec.Book> suggestedBooks; 
 	
 	public void setSuggestedBooks(ArrayList<bookrec.Book> suggestedBooks) {
 		this.suggestedBooks = suggestedBooks;
 	}
 
+	/*
 	public static void setIsbn(String i) {
 		isbn = i;
 	}
@@ -26,6 +29,7 @@ public class MenuActivity extends Activity {
 	public MenuActivity(){
 		isbn = "";
 	}
+	*/
 
 	@Override
 	public void onAttachedToWindow() {
@@ -47,11 +51,11 @@ public class MenuActivity extends Activity {
 			stopService(new Intent(MenuActivity.this, RecognizerService.class));
 			return true;
 		case R.id.more_info:
-			if (!isbn.isEmpty()) {
-				Log.d("MENU", "ISBN: "+ isbn);
-				// launch the SuggestionScrollActivity
-				new RestSuggestionHelper().execute(isbn);
-			}
+
+			// launch the SuggestionScrollActivity
+			String myIsbn = BookSingleton.getIsbn();
+			Log.d(TAG, "ISBN: " + myIsbn);
+			new RestSuggestionHelper().execute(myIsbn);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -71,15 +75,22 @@ public class MenuActivity extends Activity {
 			ArrayList<bookrec.Book> b = new ArrayList<bookrec.Book>();
 			bookrec.BookRecommendationServiceImpl test = new bookrec.BookRecommendationServiceImpl();
 			b = test.getRelatedBooks(arg0[0]);
+			
 			return b;
 		
 		}
 		
 		protected void onPostExecute(ArrayList<bookrec.Book> b){
+			
+			BookSingleton.setSuggestedBooks(b);
+			Log.d(TAG, "Books found: " + b.size());
+			
 			Intent moreInfo = (new Intent(MenuActivity.this, SuggestionScrollActivity.class));
-			moreInfo.putExtra("suggestedBooks", suggestedBooks);
+			//moreInfo.putExtra("suggestedBooks", suggestedBooks);
 			
 			startActivityForResult(moreInfo, 0);
+			
+		
 			
 		}
 		
