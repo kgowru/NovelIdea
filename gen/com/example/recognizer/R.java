@@ -21,6 +21,7 @@ public final class R {
         public static final int ic_stop=0x7f020004;
     }
     public static final class id {
+        public static final int moreInfo=0x7f090002;
         public static final int spoken_text=0x7f090000;
         public static final int stop=0x7f090001;
     }
@@ -32,7 +33,8 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060000;
-        public static final int glass_voice_prompt=0x7f060002;
+        public static final int glass_voice_prompt=0x7f060003;
+        public static final int moreInfo=0x7f060002;
         public static final int stop=0x7f060001;
     }
     public static final class style {

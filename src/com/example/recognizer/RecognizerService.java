@@ -39,11 +39,11 @@ public class RecognizerService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		ArrayList<String> voiceResults = intent.getExtras()
 	            .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
-		
+		String parsedEntry = new String();
 		if (voiceResults.size() > 0 ) {
-			for (String r : voiceResults) {
-				Log.d(LIVE_CARD_TAG, r);
-			}
+//			parsedEntry = this.parseVoiceEntry(voiceResults);
+			Log.d(null,"VoiceEntry: " + voiceResults.get(0));
+			parsedEntry = voiceResults.get(0).replace(' ', '+');
 		}
 		
 		if (mLiveCard == null) {
@@ -68,7 +68,7 @@ public class RecognizerService extends Service {
 			mLiveCard.navigate();
 		}
 		
-		new RestHelper().execute(voiceResults.get(0));
+		new RestHelper().execute(parsedEntry);
 		
 		return START_STICKY;
 	}

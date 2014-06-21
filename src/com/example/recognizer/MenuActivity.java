@@ -27,6 +27,8 @@ public class MenuActivity extends Activity {
 		case R.id.stop:
 			stopService(new Intent(MenuActivity.this, RecognizerService.class));
 			return true;
+		case R.id.moreinfo:
+			moreInfoService(new Intent(MenuActivity.this, RecognizerService.class));
 		default:
 			return super.onOptionsItemSelected(item);
 		}
