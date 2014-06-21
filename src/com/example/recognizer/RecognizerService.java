@@ -1,11 +1,16 @@
 package com.example.recognizer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.speech.RecognizerIntent;
@@ -20,7 +25,7 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 
 public class RecognizerService extends Service {
 
-	private static final String LIVE_CARD_TAG = "recognizer";
+	private static final String LIVE_CARD_TAG = "novelidea";
 	
 	private LiveCard mLiveCard;
 	
@@ -47,7 +52,7 @@ public class RecognizerService extends Service {
 			mLiveCard = new LiveCard(this, LIVE_CARD_TAG);
 			
 			// inflate low frequency update view
-			mLiveCardView = new RemoteViews(getPackageName(), R.layout.card_recognized);
+			mLiveCardView = new RemoteViews(getPackageName(), R.layout.book_summary);
 			
 			// DISABLED Direct rendering for high frequency
 			/*
@@ -95,11 +100,41 @@ public class RecognizerService extends Service {
 		
 		@Override
 		protected void onPostExecute(Book b){
-			mLiveCardView.setTextViewText(R.id.spoken_text, b.getAuthors().get(0));
+			Log.d(LIVE_CARD_TAG, "Book: " + b.getTitle()  
+					+ " by " +   b.getAuthors().get(0) 
+					+ " with image: " + b.getImageURL());
+			
+			mLiveCardView.setTextViewText(R.id.book_author, b.getAuthors().get(0));
+			mLiveCardView.setTextViewText(R.id.book_title, b.getTitle());
+			new ImageDownloader().execute(b.getImageURL());
+			mLiveCardView.setTextViewText(R.id.book_rating, "Rating " + Double.toString(b.getRating()));
 			mLiveCard.setViews(mLiveCardView);
 		}
+	}
+	
+	public class ImageDownloader extends AsyncTask<String,Void,Bitmap> {
+		@Override
+		protected Bitmap doInBackground(String... arg0) {
+			try {
+				Log.d("IMAGEDOWNLOADER", arg0[0]);
+		        URL url = new URL(arg0[0]);
+		        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		        connection.setDoInput(true);
+		        connection.connect();
+		        InputStream input = connection.getInputStream();
+		        Bitmap myBitmap = BitmapFactory.decodeStream(input);
+		        return myBitmap;
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
 		
-		
+		@Override
+		protected void onPostExecute(Bitmap b) {
+			mLiveCardView.setImageViewBitmap(R.id.book_image, b);
+			mLiveCard.setViews(mLiveCardView);
+		}
 	}
 
 }

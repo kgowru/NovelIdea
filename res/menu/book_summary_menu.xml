@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/stop"
-        android:title="@string/stop"
-        android:icon="@drawable/ic_stop" />
    	<item
    	    android:id="@+id/more_info"
    	    android:title="@string/more_info"
    	    android:icon="@drawable/ic_search_50"/>
+    <item
+        android:id="@+id/stop"
+        android:title="@string/stop"
+        android:icon="@drawable/ic_stop" />
 </menu>

@@ -17,7 +17,7 @@ public class MenuActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.recognizer, menu);
+		inflater.inflate(R.menu.book_summary_menu, menu);
 		return true;
 	}
 	
@@ -28,7 +28,6 @@ public class MenuActivity extends Activity {
 			stopService(new Intent(MenuActivity.this, RecognizerService.class));
 			return true;
 		case R.id.more_info:
-			// launch the SuggestionScrollActivity
 			Intent moreInfo = (new Intent(MenuActivity.this, SuggestionScrollActivity.class));
 			startActivityForResult(moreInfo, 0);
 			return true;
