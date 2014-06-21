@@ -14,6 +14,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         
+        <!--  Menu -->
         <activity
             android:name="com.example.recognizer.MenuActivity"
             android:label="@string/app_name"
@@ -21,6 +22,15 @@
             android:enabled="true" >
         </activity>
         
+        <!-- Immersion -->
+        <activity
+            android:name="com.example.recognizer.SuggestionScrollActivity"
+            android:label="@string/app_name"
+            android:enabled="true"
+            android:immersive="true">
+        </activity>
+            
+        <!-- Initial Service -->
         <service
             android:name="com.example.recognizer.RecognizerService"
             android:icon="@drawable/ic_lap"
