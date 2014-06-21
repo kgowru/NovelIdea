@@ -1,14 +1,19 @@
 package com.example.recognizer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.widget.RemoteViews;
+import book.Book;
+import book.BookInfoService;
+import book.BookInfoServiceImpl;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
@@ -63,9 +68,7 @@ public class RecognizerService extends Service {
 			mLiveCard.navigate();
 		}
 		
-		mLiveCardView.setTextViewText(R.id.spoken_text, voiceResults.get(0));
-		
-		mLiveCard.setViews(mLiveCardView);
+		new RestHelper().execute(voiceResults.get(0));
 		
 		return START_STICKY;
 	}
@@ -77,6 +80,29 @@ public class RecognizerService extends Service {
 			mLiveCard = null;
 		}
 		super.onDestroy();
+	}
+	
+	public class RestHelper extends AsyncTask<String,Void,Book>{
+
+		@Override
+		protected Book doInBackground(String... arg0) {
+			Book c = new Book();
+			BookInfoService s = new BookInfoServiceImpl();
+			try {
+				c = s.retrieveInfo(arg0[0]);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return c;	
+		}
+		
+		@Override
+		protected void onPostExecute(Book b){
+			mLiveCardView.setTextViewText(R.id.spoken_text, b.getAuthors().get(0));
+			mLiveCard.setViews(mLiveCardView);
+		}
+		
+		
 	}
 
 }
